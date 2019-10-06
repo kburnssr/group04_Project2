@@ -125,9 +125,9 @@
       clear: left;
   }
   ul.students li img{
-      max-width: 100%;
+      width: 218px;
       border-radius: 50%;
-      border: 10px solid #ccc;
+      border: 10px solid #e9e9e9;
       display: block;
   }
   ul.students li h2,
@@ -146,3 +146,40 @@
       width: 50%;
       clear: none;
   }
+  .item {
+    position: relative;
+}
+
+.item img {
+    text-align:center;
+    position: absolute;
+    line-height: 125px;
+    width: 100%;
+}
+
+svg {
+   -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.circle_animation {
+  stroke-dasharray: 653; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 653;
+}
+
+.css .circle_animation {
+    -webkit-animation: css 1s ease-out forwards;
+    animation: css 1s ease-out forwards;
+}
+
+@-webkit-keyframes css {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes css {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
