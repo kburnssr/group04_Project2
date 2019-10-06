@@ -163,8 +163,8 @@ svg {
 }
 
 .circle_animation {
-  stroke-dasharray: 653; /* this value is the pixel circumference of the circle */
-  stroke-dashoffset: 653;
+  stroke-dasharray: 1308; /* this value is the pixel circumference of the circle */
+  stroke-dashoffset: 1308;
 }
 
 .css .circle_animation {
@@ -174,12 +174,12 @@ svg {
 
 @-webkit-keyframes css {
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 654;
   }
 }
 
 @keyframes css {
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 654;
   }
 }
