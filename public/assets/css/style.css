@@ -117,7 +117,8 @@
       border: 1px solid #999;
     border-radius: 8px;
     background-color: #fff;
-  }
+    margin-bottom: 2%;
+   }
   ul.students li:nth-child(3n){
       margin-right: 0;
   }
@@ -138,13 +139,17 @@
       clear: both;
   }
   ul.students li h2{
-    margin-top: 0;
+    margin: 0;
+    height: 3.5em;
   }
   ul.students li div.need,
   ul.students li div.raised{
       float: left;
       width: 50%;
       clear: none;
+  }
+  ul.students p.bio{
+    height: 3.5em;
   }
   .item {
     position: relative;

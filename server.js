@@ -22,11 +22,22 @@ app.get('/', function(req, res){
 });
  
 app.get('/students', function(req, res){
-	connection.query('SELECT * FROM students', function (error, results, fields) {
+	var q = `SELECT
+	s.first_name,
+	s.last_name,
+	sp.image,
+	sp.country,
+	sp.bio,
+	c.tuition_fees AS amount_needed,
+	c.semester,
+	c.year
+FROM campaign c
+LEFT JOIN student s ON s.id = c.student_id
+LEFT JOIN student_profile sp ON sp.student_id = s.id
+LEFT JOIN donations d ON d.campaign_id = c.id
+WHERE c.end_date > NOW()`
+	connection.query(q, function (error, results, fields) {
 	  if (error) res.send(error)
-	  else 
-	  //res.json(results);
-	  console.log(results)
 	  res.render("pages/students",{ data: results});
 	});
 });
@@ -37,7 +48,7 @@ app.get('/insert', function(req, res){
 	// res.json(req.query);
 
 	if (req.query.pres_name.length > 1){
-		connection.query('INSERT INTO students (student_name) VALUES (?)', [req.query.students_name], function (error, results, fields) {
+		connection.query('INSERT INTO student (student_name) VALUES (?)', [req.query.student_name], function (error, results, fields) {
 		  if (error) res.send(error)
 		  else res.redirect('/');
 		});
