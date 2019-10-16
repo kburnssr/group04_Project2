@@ -29,13 +29,15 @@ app.get('/students', function(req, res){
 	sp.country,
 	sp.bio,
 	c.tuition_fees AS amount_needed,
+	SUM(d.amount) AS raised,
 	c.semester,
 	c.year
 FROM campaign c
 LEFT JOIN student s ON s.id = c.student_id
 LEFT JOIN student_profile sp ON sp.student_id = s.id
 LEFT JOIN donations d ON d.campaign_id = c.id
-WHERE c.end_date > NOW()`
+WHERE c.end_date > NOW()
+GROUP BY c.id`
 	connection.query(q, function (error, results, fields) {
 	  if (error) res.send(error)
 	  res.render("pages/students",{ data: results});

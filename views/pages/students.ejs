@@ -34,7 +34,9 @@
             <div class="container">
                 <h1>Kasimu Education Fund Students <br> 100% of donations go to students</h1>
                 <ul class="students">
-                    <% for (var i =0; i < data.length; i++) { %>
+                    <% for (var i =0; i < data.length; i++) { 
+                        var stroke = data[i].raised/data[i].amount_needed * 654 + 654;
+                        %>
                     <li>
                         <h2><%= data[i].first_name %> <%= data[i].last_name %></h2>
                         <div class="item css">
@@ -43,7 +45,7 @@
                                 <g>
                                     <circle id="circle" class="circle_animation" r="104.0" cy="109" cx="109"
                                         stroke-width="10" stroke="#008800" fill="none"
-                                        style="stroke-dashoffset:900;stroke-dasharray:900;" />
+                                        style="stroke-dashoffset:<%=stroke%>;stroke-dasharray:<%=stroke%>;" />
                                 </g>
                             </svg>
                         </div>
@@ -57,7 +59,7 @@
                             Needed $<%= parseInt(data[i].amount_needed/100) %>
                         </div>
                         <div class="raised">
-                            Raised $0.00
+                            Raised $<%=parseInt(data[i].raised/100)%>
                         </div>
                         <p>
                             Semester: <%= data[i].semester%> - Year: <%=data[i].year.getFullYear()%>
