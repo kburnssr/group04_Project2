@@ -37,7 +37,7 @@ app.get('/insert', function(req, res){
 	// res.json(req.query);
 
 	if (req.query.pres_name.length > 1){
-		connection.query('INSERT INTO students (student_name) VALUES (?)', [req.query.pres_name], function (error, results, fields) {
+		connection.query('INSERT INTO students (student_name) VALUES (?)', [req.query.students_name], function (error, results, fields) {
 		  if (error) res.send(error)
 		  else res.redirect('/');
 		});
