@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is /partner </h1>
+  <% for (var i =0; i<data.length; i++) {%>
+    <p><%= data[i].first_name %></p>
+  <%}%>
+
+  <form action="">
+      <input type="firstname">
+      <input type="lastname">
+      <input type="email">
+      <input type="phonenumber">
+    
+      <button id="submit">Submit </button>
+
+  </form>
+</body>
+</html>

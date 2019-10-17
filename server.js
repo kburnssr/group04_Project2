@@ -1,73 +1,95 @@
+// load the things we need
 var express = require('express');
 var app = express();
 
-app.set('view engine', 'ejs');
-//making static assets
-app.use(express.static("public"));
+var mysql = require('mysql')
 
-var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'root',
-  database : 'students_db'
-});
-    
-connection.connect();
+	host: 'localhost',
+	user: 'root',
+	password: 'root',
+	port: '3306',
+	database: 'ksm_db'
+})
 
-app.get('/', function(req, res){
- 
-  res.render("pages/home");
- 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
+
+
+app.get('/index', function(req, res) {
+	res.render('pages/index');
 });
- 
-app.get('/students', function(req, res){
-	var q = `SELECT
-	s.first_name,
-	s.last_name,
-	sp.image,
-	sp.country,
-	sp.bio,
-	c.tuition_fees AS amount_needed,
-	SUM(d.amount) AS raised,
-	c.semester,
-	c.year
-FROM campaign c
-LEFT JOIN student s ON s.id = c.student_id
-LEFT JOIN student_profile sp ON sp.student_id = s.id
-LEFT JOIN donations d ON d.campaign_id = c.id
-WHERE c.end_date > NOW()
-GROUP BY c.id`
-	connection.query(q, function (error, results, fields) {
-	  if (error) res.send(error)
-	  res.render("pages/students",{ data: results});
+
+// index page 
+app.get('/index', function(req, res) {
+	res.render('pages/index');
+});
+
+
+
+var data =
+	[
+	{id: 1, name: 'obi'},
+	{id: 2, name: 'harry'},
+	{id: 3, name: 'ricardo'},
+	{id: 4, name: 'marina'},
+	{id: 5, name: 'prakash'},
+	{id: 6, name: 'david'},
+	{id: 7, name: 'david 2'},
+	{id: 8, name: 'kit'}
+]
+
+
+
+app.get('/partner', function(req, res) {
+
+	connection.query("select * from student_ksm",function(error,results,fields){
+		if (error)
+		{
+			console.log(error)
+		}
+		else{
+			console.log(results)
+			res.render('pages/partner',{data:results});
+		}
+	})
+	//res.render('pages/partner',{data:data});	
+});
+
+app.get('/students', function(req, res) {
+	res.render('pages/students');
+});
+
+
+
+app.get('/about', function(req, res){
+	res.render('pages/about', {
+		data: [
+			{id: 1, name: 'obi'},
+			{id: 2, name: 'harry'},
+			{id: 3, name: 'ricardo'},
+			{id: 4, name: 'marina'},
+			{id: 5, name: 'prakash'},
+			{id: 6, name: 'david'},
+			{id: 7, name: 'david 2'},
+			{id: 8, name: 'kit'}
+		],
+
+		classroom : 505
+	});	
+
+	app.get('/adding', function(req, res) {
+		res.render('pages/adding');
 	});
+		
+
+})
+
+
+
+
+app.listen(3000, function(){
+	console.log('listening on 3000')
 });
-
-// by default the forms use req.query so let's not fight it
-//localhost:3000/insert?student_name=EuniceNjati
-app.get('/insert', function(req, res){
-	// res.json(req.query);
-
-	if (req.query.pres_name.length > 1){
-		connection.query('INSERT INTO student (student_name) VALUES (?)', [req.query.student_name], function (error, results, fields) {
-		  if (error) res.send(error)
-		  else res.redirect('/');
-		});
-	}else{
-		res.send('invalid name')
-	}
-});
-
-app.listen(5500, function(){
-	console.log('listening on 5500');
-});
-
-
-
-
-
-
-
-
-
