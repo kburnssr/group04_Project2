@@ -33,16 +33,23 @@ app.get('/students', function(req, res){
 	c.semester,
 	c.year
 FROM campaign c
-LEFT JOIN student s ON s.id = c.student_id
+INNER JOIN student s ON s.id = c.student_id
 LEFT JOIN student_profile sp ON sp.student_id = s.id
 LEFT JOIN donations d ON d.campaign_id = c.id
-WHERE c.end_date > NOW()
+WHERE c.end_date > NOW() AND s.deleted = 0
 GROUP BY c.id`
 	connection.query(q, function (error, results, fields) {
+		console.log(results);
 	  if (error) res.send(error)
 	  res.render("pages/students",{ data: results});
 	});
 });
+
+app.get('/about', function(req, res){
+	res.render("pages/about");
+   
+  });
+
 
 // by default the forms use req.query so let's not fight it
 //localhost:3000/insert?student_name=EuniceNjati
