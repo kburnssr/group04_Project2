@@ -1,5 +1,5 @@
 This is project number 2 for Group 4
-The project was to create an animated website display nultiple student's pictures and raise funds for students in Malawi
+The project was to create an animated website display multiple student's pictures and raise funds for students in Malawi
 The page uses-embedded javascript and mySQL
 5 tables were created in my SQL
 ![Alt text](./public/assets/images/mySQLWB.jpg)
@@ -8,3 +8,4 @@ A profile of each student and a means of donating money for tuition to assist th
 
 This code is initiated on localhost:5000/
 $ node server.js
+localhost:5000/
